@@ -5,10 +5,7 @@ const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all posts and JOIN with user data
     const postData = await Post.findAll({
-      include: [
-        {
           attributes: ['id', 'name', 'details', 'creation_data'],
           include: [{
             model: Comment,
@@ -23,17 +20,13 @@ router.get('/', async (req, res) => {
             attributes: ['name']
           }
         ]
-        },
-      ],
     });
 
-    // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
 
-    // Pass serialized data and session flag into template
     res.render('homepage', { 
       posts, 
-      logged_in: req.session.logged_in 
+      loggedIn: req.session.loggedIn 
     });
   } catch (err) {
     res.status(500).json(err);
@@ -43,8 +36,6 @@ router.get('/', async (req, res) => {
 router.get('/post/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
-      include: [
-        {
           attributes: ['id', 'name', 'details', 'creation_data'],
           include: [{
             model: Comment,
@@ -59,15 +50,13 @@ router.get('/post/:id', async (req, res) => {
             attributes: ['name']
           }
         ]
-        },
-      ],
     });
 
     const post = postData.get({ plain: true });
 
     res.render('post', {
       ...post,
-      logged_in: req.session.logged_in
+      loggedIn: req.session.loggedIn
     });
   } catch (err) {
     res.status(500).json(err);
@@ -87,7 +76,7 @@ router.get('/profile', withAuth, async (req, res) => {
 
     res.render('profile', {
       ...user,
-      logged_in: true
+      loggedIn: true
     });
   } catch (err) {
     res.status(500).json(err);
@@ -95,8 +84,8 @@ router.get('/profile', withAuth, async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  if (req.session.logged_in) {
-    res.redirect('/profile');
+  if (req.session.loggedIn) {
+    res.redirect('/');
     return;
   }
 
