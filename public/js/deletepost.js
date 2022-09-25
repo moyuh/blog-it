@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 const deletePostHandler = async (event) => {
     event.preventDefault();
 
@@ -17,5 +15,5 @@ const deletePostHandler = async (event) => {
 
 
 document
-    .querySelector('.create-blogpost')
+    .querySelector('.delete-blogpost')
     .addEventListener('submit', deletePostHandler);
