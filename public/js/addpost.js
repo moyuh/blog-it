@@ -5,7 +5,7 @@ const newPostFormHandler = async (event) => {
 
     const post_details = document.querySelector('textarea[name="post-details"]').value.trim();
     
-    const response = await fetch('/api/posts', {
+    const resp = await fetch('/api/posts', {
         method: 'POST',
         body: JSON.stringify({
             name,
@@ -15,10 +15,10 @@ const newPostFormHandler = async (event) => {
             'Content-Type': 'application/json'
         }
     });
-        if (response.ok) {
+        if (resp.ok) {
             document.location.replace('/dashboard');
         }else {
-            alert(response.statusText);
+            alert(resp.statusText);
         }
     }
 

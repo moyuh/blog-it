@@ -16,10 +16,10 @@ const commentFormHandler = async (event) => {
                 'Content-Type': 'application/json'
             }
         });
-        if (response.ok) {
+        if (resp.ok) {
             document.location.reload();
         }else {
-            alert(response.statusText);
+            alert(resp.statusText);
         }
     }
 }
