@@ -1,0 +1,30 @@
+<a href="/dashboard" class="go-back">Back to User Dashboard</a>
+
+<article class="new-page">
+    <section class="update-form-page">
+        <div class="form-heading">
+            <h2>
+                Update Post
+            </h2>
+        </div>
+        <div class="form-section">
+            <form class="update-blogpost">
+                <div class="post-title-section">
+                    <label for="post-name">Post Name:</label>
+                    <input type="text" name="post-name" id="post-name" value="{{post.name}}" />
+                </div>
+                <div class="post-details">
+                    <label for="post-details">Post:</label>
+                    <textarea class="entry-field" id="post-details" name="post-details">{{post.details}}</textarea>
+                </div>
+                <button type="submit">Update post</button>
+                <button type="button" class="delete-post-btn">Delete post</button>
+            </form>
+        </div>
+    </section>
+</article>
+
+{{#if loggedIn}}
+<script src="/javascript/updatepost.js"></script>
+<script src="/javascript/deletepost.js"></script>
+{{/if}}
