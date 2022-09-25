@@ -1,9 +1,7 @@
-const { response } = require("express");
-
 const commentFormHandler = async (event) => {
     event.preventDefault();
 
-    const comment_details = document.querySelector('textarea[name="comment-body"]').value.trim();
+    const comment_details = document.querySelector('textarea[name="comment-details"]').value.trim();
 
     const post_id = window.location.toString().split('/')[window.location.toString().split('/').length -1];
     
