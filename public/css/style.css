@@ -29,7 +29,7 @@ main {
     font-weight: bold;
  }
 
- a::after a:visited {
+ a::after, a:visited {
   color:  rgb(251, 200, 228);
   text-decoration: underline;
  }

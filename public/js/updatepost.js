@@ -6,7 +6,7 @@ const updatePostHandler = async (event) => {
     const post_id = window.location.toString().split('/')[window.location.toString().split('/').length-1];
     
     const resp = await fetch(`/api/posts/${post_id}`, {
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify({
             name,
             post_details

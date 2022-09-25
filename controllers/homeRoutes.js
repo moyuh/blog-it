@@ -6,10 +6,10 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try {
     const postData = await Post.findAll({
-          attributes: ['id', 'name', 'details', 'creation_data'],
+          attributes: ['id', 'name', 'details'],
           include: [{
             model: Comment,
-            attributes: ['id', 'comment_details', 'post_id', 'user_id', 'creation_data'],
+            attributes: ['id', 'comment_details', 'post_id', 'user_id'],
             include: {
               model: User,
               attributes: ['name']
@@ -36,10 +36,10 @@ router.get('/', async (req, res) => {
 router.get('/post/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
-          attributes: ['id', 'name', 'details', 'creation_data'],
+          attributes: ['id', 'name', 'details'],
           include: [{
             model: Comment,
-            attributes: ['id', 'comment_details', 'post_id', 'user_id', 'creation_data'],
+            attributes: ['id', 'comment_details', 'post_id', 'user_id'],
             include: {
               model: User,
               attributes: ['name']
@@ -55,28 +55,8 @@ router.get('/post/:id', async (req, res) => {
     const post = postData.get({ plain: true });
 
     res.render('post', {
-      ...post,
+      post,
       loggedIn: req.session.loggedIn
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
-  try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Post }],
-    });
-
-    const user = userData.get({ plain: true });
-
-    res.render('profile', {
-      ...user,
-      loggedIn: true
     });
   } catch (err) {
     res.status(500).json(err);
@@ -88,7 +68,6 @@ router.get('/login', (req, res) => {
     res.redirect('/');
     return;
   }
-
   res.render('login');
 });
 

@@ -11,12 +11,11 @@ router.get('/', withAuth, (req, res) =>{
         attributes: [
             'id',
             'name',
-            'details',
-            'creation_data'
+            'details'
         ],
         include: [{
             model: Comment,
-            attributes: ['id', 'comment_details', 'post_id', 'user_id', 'creation_data'],
+            attributes: ['id', 'comment_details', 'post_id', 'user_id'],
             include: {
                 model: User,
                 attributes: ['name']
@@ -38,7 +37,7 @@ router.get('/', withAuth, (req, res) =>{
     });
 });
 
-router.get('/editpost/:id', withAuth, (req, res) => {
+router.get('/updatepost/:id', withAuth, (req, res) => {
     Post.findOne({
         where: {
             id: req.params.id
@@ -46,12 +45,11 @@ router.get('/editpost/:id', withAuth, (req, res) => {
         attributes: [
             'id',
             'name',
-            'details',
-            'creation_data'
+            'details'
         ],
         include: [{
             model: Comment,
-            attributes: ['id', 'comment_details', 'post_id', 'user_id', 'creation_data'],
+            attributes: ['id', 'comment_details', 'post_id', 'user_id'],
             include: {
                 model: User,
                 attributes: ['name']
@@ -73,7 +71,7 @@ router.get('/editpost/:id', withAuth, (req, res) => {
             plain: true
         });
 
-        res.render('edit-post', {
+        res.render('updatepost', {
             post, loggedIn: true
         });
     }).catch(err =>{
@@ -83,7 +81,7 @@ router.get('/editpost/:id', withAuth, (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-    res.render('new-post', {
+    res.render('addpost', {
         loggedIn: true
     })
 })

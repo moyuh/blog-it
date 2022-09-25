@@ -6,5 +6,5 @@ const newPostHandler = async (event) => {
 
 
 document
-    .querySelector('.create-blogpost')
+    .querySelector('#create-blogpost')
     .addEventListener('submit', newPostHandler);

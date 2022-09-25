@@ -1,4 +1,4 @@
-<a href="/dashboard" class="go-back">Back to User Dashboard</a>
+<a href="/dashboard" class="go-back">Dashboard</a>
 
 <article class="new-page">
     <section class="update-form-page">
@@ -17,14 +17,14 @@
                     <label for="post-details">Post:</label>
                     <textarea class="entry-field" id="post-details" name="post-details">{{post.details}}</textarea>
                 </div>
-                <button type="submit">Update post</button>
-                <button type="button" class="delete-post-btn">Delete post</button>
+                <button type="submit">✍️ Edit Post ✍️</button>
+                <button type="button" class="delete-blogpost">💥Delete Post💥</button>
             </form>
         </div>
     </section>
 </article>
 
 {{#if loggedIn}}
-<script src="/javascript/updatepost.js"></script>
-<script src="/javascript/deletepost.js"></script>
+<script src="/js/updatepost.js"></script>
+<script src="/js/deletepost.js"></script>
 {{/if}}
