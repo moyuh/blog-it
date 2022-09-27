@@ -6,7 +6,6 @@ router.get('/', async (req, res) => {
    try{
     const postData = await Post.findAll({
       attributes: ['id', 'name', 'details'],
-      order: [['creation_data', 'DESC']],
       include: [{
         model: User,
         attributes: ['name'],
@@ -51,7 +50,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', withAuth, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const newPost = await Post.create({
      name: req.body.name,
@@ -64,7 +63,7 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const updatePost = await Post.update({
       name: req.body,name,
@@ -81,7 +80,7 @@ router.put('/:id', withAuth, async (req, res) => {
   }
 });
 
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const postData = await Post.destroy({
       where: {
