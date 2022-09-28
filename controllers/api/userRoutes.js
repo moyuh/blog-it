@@ -16,7 +16,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) =>{
   try {
-  const userData = await User.findByPk(req.params.id, {
+  const userData = await User.findOne({
+        where:{
+          id: req.params.id },
         attributes: {
           exclude: ['password']
         },
@@ -39,7 +41,7 @@ router.get('/:id', async (req, res) =>{
     res.status(400).json(err);
   }
 });
-// ERROR IS HERE AHHHHH
+
 router.post('/signup', async (req, res) => {
   console.log(req.body.name, req.body.password);
   try {

@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const sequilize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
-const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
@@ -35,7 +34,9 @@ router.get('/', async (req, res) => {
 
 router.get('/post/:id', async (req, res) => {
   try {
-    const postData = await Post.findByPk(req.params.id, {
+    const postData = await Post.findOne({
+          where: {
+            id: req.params.id, },
           attributes: ['id', 'name', 'details'],
           include: [{
             model: Comment,

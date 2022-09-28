@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-router.get('/',withAuth, async (req, res) => {
+router.get('/', async (req, res) => {
    try{
     const postData = await Post.findAll({
       attributes: ['id', 'name', 'details'],
@@ -15,7 +15,7 @@ router.get('/',withAuth, async (req, res) => {
         attributes: ['id', 'comment_details', 'post_id', 'user_id'],
         include: {
           model: User,
-          attributes: ['name']
+          attributes: ['name'],
         },
       },
     ],
@@ -26,13 +26,15 @@ router.get('/',withAuth, async (req, res) => {
   }
 });
 
-router.get('/:id', withAuth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try{
-    const postData = await Post.findByPk(req.params.id, {
+    const postData = await Post.findOne({
+      where:{
+        id: req.params.id, },
       attributes: ['id', 'name', 'details'],
     include: [{
       model: User,
-      attributes: ['names'],
+      attributes: ['name'],
     },
     {
       model: Comment,
@@ -85,7 +87,6 @@ router.delete('/:id', withAuth, async (req, res) => {
     const postData = await Post.destroy({
       where: {
         id: req.params.id,
-        user_id: req.session.user_id,
       },
     });
     res.status(200).json(postData);
