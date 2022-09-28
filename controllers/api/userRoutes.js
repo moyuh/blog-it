@@ -39,13 +39,15 @@ router.get('/:id', async (req, res) =>{
     res.status(400).json(err);
   }
 });
-
-router.post('/', async (req, res) => {
+// ERROR IS HERE AHHHHH
+router.post('/signup', async (req, res) => {
+  console.log(req.body.name, req.body.password);
   try {
     const userData = await User.create({
       name: req.body.name,
       password: req.body.password
     });
+    
       req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.name = userData.name;
@@ -54,7 +56,7 @@ router.post('/', async (req, res) => {
       res.status(200).json(userData);
     });
   } catch (err) {
-    res.status(400).json(err);
+    res.status(403).json(err);
   }
 });
 
@@ -64,7 +66,7 @@ router.post('/login', async (req, res) => {
 
     if (!userData) {
       res
-        .status(400)
+        .status(401)
         .json({ message: 'Incorrect username or password, please try again' });
       return;
     }
