@@ -1,7 +1,7 @@
 # Blog-It
 Link to the Project Repository: [REPO](https://github.com/moyuh/blog-it)
 [Heroku](https://mighty-meadow-50696.herokuapp.com/)
-
+<img src="public/images/blog.png">
 ## Table of Contents
 
 * [Description](#description)
